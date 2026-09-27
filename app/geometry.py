@@ -29,9 +29,10 @@ class LinkGeometry:
         """障碍截面处的约化距离（m）。
 
         菲涅尔参数与第一区半径都只经由这一项依赖 d1、d2，
-        按障碍在全程中的位置比例展开，避免长链路下 d1·d2 直接相乘。
+        按障碍在全程中的位置比例展开，避免长链路下 d1·d2 直接相乘：
+        d1·d2/(d1+d2) = d1·(d2/(d1+d2))。
         """
-        return self.d1_m * (1.0 - self.d2_m / self.total_distance_m)
+        return self.d1_m * (self.d2_m / self.total_distance_m)
 
     @property
     def clearance_m(self) -> float:
