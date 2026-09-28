@@ -26,12 +26,12 @@ class LinkGeometry:
 
     @property
     def reduced_distance_m(self) -> float:
-        """障碍截面处的约化距离（m）。
+        """障碍截面处的约化距离（m）：d1·d2/(d1+d2)。
 
-        菲涅尔参数与第一区半径都只经由这一项依赖 d1、d2，
-        按障碍在全程中的位置比例展开，避免长链路下 d1·d2 直接相乘。
+        菲涅尔参数 v = h·√(2/(λ·约化距离)) 与第一区半径 r1 = √(λ·约化距离)
+        都只经由这一项依赖 d1、d2。该量对 d1、d2 对称：交换收发端不改变结果。
         """
-        return self.d1_m * (1.0 - self.d2_m / self.total_distance_m)
+        return self.d1_m * self.d2_m / self.total_distance_m
 
     @property
     def clearance_m(self) -> float:
